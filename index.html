@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dartanyon Race</title>
+<meta name="description" content="Dartanyon Race. Vermont born, Pennsylvania raised, Seattle home.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 48'%3E%3Cpath d='M 30 6 L 30 32 L 46 32 Z' fill='none' stroke='%23888' stroke-width='1.2'/%3E%3Cpath d='M 30 9 L 30 30 L 18 30 Z' fill='none' stroke='%23888' stroke-width='1.2'/%3E%3Cline x1='30' y1='4' x2='30' y2='34' stroke='%23888' stroke-width='1.2'/%3E%3Cpath d='M 16 32 Q 30 40 44 32 L 40 36 Q 30 41 20 36 Z' fill='%23888'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --text-subtle: #9a9a9a;
+    --link-underline: rgba(0, 0, 0, 0.2);
+    --boat-fill: #6b6b6b;
+    --boat-sail: #ffffff;
+    --wave-strong: rgba(0, 0, 0, 0.25);
+    --wave-light: rgba(0, 0, 0, 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d0d0d;
+      --text: #e8e8e8;
+      --text-muted: #9a9a9a;
+      --text-subtle: #6b6b6b;
+      --link-underline: rgba(255, 255, 255, 0.25);
+      --boat-fill: #9a9a9a;
+      --boat-sail: #0d0d0d;
+      --wave-strong: rgba(255, 255, 255, 0.28);
+      --wave-light: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+    position: relative;
+  }
+
+  .content {
+    max-width: 600px;
+    margin-left: 80px;
+  }
+
+  .header {
+    margin: 0 0 7.2rem;
+  }
+
+  .name {
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0 0 1rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--link-underline);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  a:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .verbs {
+    margin: 1.5rem 0;
+  }
+
+  .verbs p {
+    margin: 0;
+  }
+
+  .kicker {
+    margin-top: 2.5rem;
+    font-weight: 500;
+  }
+
+  .email {
+    margin-top: 3rem;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .email a {
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--link-underline);
+    padding-bottom: 2px;
+  }
+
+  .email a:hover {
+    color: var(--text);
+  }
+
+  .skiff {
+    position: absolute;
+    top: 4rem;
+    left: 1.5rem;
+    width: 61px;
+    height: 48px;
+  }
+
+  .skiff-group {
+    transform-origin: 30px 34px;
+    animation: bob 4.5s ease-in-out infinite;
+  }
+
+  .skiff:hover .skiff-group {
+    animation-duration: 1.6s;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-2px) rotate(2deg); }
+  }
+
+  .wave {
+    animation: wave 3s ease-in-out infinite;
+  }
+
+  .wave-2 {
+    animation-delay: -1.5s;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(3px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skiff-group,
+    .wave {
+      animation: none;
+    }
+  }
+
+  /* Mobile: skiff drops to the bottom, well below the text */
+  @media (max-width: 640px) {
+    .page {
+      padding: 3rem 1.25rem 0;
+    }
+
+    .content {
+      margin-left: 0;
+    }
+
+    .header {
+      margin: 0 0 5rem;
+    }
+
+    .skiff {
+      position: static;
+      display: block;
+      margin: 8rem auto 6rem;
+      width: 72px;
+      height: 56px;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <svg class="skiff" viewBox="0 0 61 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="skiff-group">
+      <path d="M 30 6 L 30 32 L 46 32 Z" fill="var(--boat-sail)" stroke="var(--boat-fill)" stroke-width="0.8"/>
+      <path d="M 30 9 L 30 30 L 18 30 Z" fill="var(--boat-sail)" stroke="var(--boat-fill)" stroke-width="0.8"/>
+      <line x1="30" y1="4" x2="30" y2="34" stroke="var(--boat-fill)" stroke-width="0.8"/>
+      <path d="M 16 32 Q 30 40 44 32 L 40 36 Q 30 41 20 36 Z" fill="var(--boat-fill)"/>
+    </g>
+    <path class="wave" d="M 2 41 Q 10 39 18 41 T 32 41 T 46 41 T 58 41" fill="none" stroke="var(--wave-strong)" stroke-width="0.8" stroke-linecap="round"/>
+    <path class="wave wave-2" d="M 2 45 Q 12 43 22 45 T 38 45 T 56 45" fill="none" stroke="var(--wave-light)" stroke-width="0.8" stroke-linecap="round"/>
+  </svg>
+
+  <div class="content">
+    <div class="header">
+      <p class="name">Dartanyon&nbsp;&nbsp;Race</p>
+    </div>
+
+    <p>Vermont born, Pennsylvania raised, Seattle home.</p>
+
+    <p>Two grown boys turning out to be decent humans.</p>
+
+    <p>I could sail before I could drive.</p>
+
+    <div class="verbs">
+      <p>I write.</p>
+      <p>I build.</p>
+      <p>I architect.</p>
+      <p>I scheme.</p>
+    </div>
+
+    <p>I get to travel the world with the best partner.</p>
+
+    <p>Twenty years in video production, one Emmy, currently running media operations for <a href="https://www.riotgames.com">Riot Games</a>.</p>
+
+    <p>All the music, except modern country.</p>
+    <p>All the art, except interpretive dance.</p>
+
+    <p class="kicker">Put your phone down. Let's get to work.</p>
+
+    <div class="email">
+      <a href="mailto:dr@dartanyon.com">dr@dartanyon.com</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>
