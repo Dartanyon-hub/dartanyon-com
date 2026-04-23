@@ -5,31 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dartanyon Race</title>
 <meta name="description" content="Dartanyon Race. Vermont born, Pennsylvania raised, Seattle home.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 48'%3E%3Cpath d='M 30 6 L 30 32 L 46 32 Z' fill='none' stroke='%23888' stroke-width='1.2'/%3E%3Cpath d='M 30 9 L 30 30 L 18 30 Z' fill='none' stroke='%23888' stroke-width='1.2'/%3E%3Cline x1='30' y1='4' x2='30' y2='34' stroke='%23888' stroke-width='1.2'/%3E%3Cpath d='M 16 32 Q 30 40 44 32 L 40 36 Q 30 41 20 36 Z' fill='%23888'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 48'%3E%3Cg fill='none' stroke='%23888' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'%3E%3Cline x1='26' y1='3' x2='26' y2='32'/%3E%3Cpath d='M 26 10 L 34 5 L 44 30 L 26 30 Z'/%3E%3Cpath d='M 26 5 L 5 28 L 13 30 Z'/%3E%3Cline x1='10' y1='30' x2='5' y2='28'/%3E%3Cpath d='M 10 30 Q 30 32 50 30 Q 30 39 10 30 Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #ffffff;
-    --text: #1a1a1a;
-    --text-muted: #6b6b6b;
-    --text-subtle: #9a9a9a;
-    --link-underline: rgba(0, 0, 0, 0.2);
-    --boat-fill: #6b6b6b;
-    --boat-sail: #ffffff;
-    --wave-strong: rgba(0, 0, 0, 0.25);
-    --wave-light: rgba(0, 0, 0, 0.12);
+    /* Palette — DESIGN.md */
+    --color-dark: #26251E;
+    --color-cream: #F2F1ED;
+    --color-light: #E6E5E0;
+    --surface-300: #EBEAE5;
+    --accent-primary: #4E7287;      /* Inky Blue */
+    --accent-primary-hover: #3D5E6F;
+    --accent-muted: #A08D7E;         /* Cocoa Whip */
+    --accent-indigo: #2A3B62;
+    --accent-copper: #B87333;        /* Shiny Penny */
+
+    /* Borders & shadows */
+    --border-light: oklab(0.263 -0.002 0.012 / 0.1);
+    --shadow-focus: rgba(78, 114, 135, 0.2) 0px 0px 0px 3px;
+
+    /* Typography */
+    --font-display: "Special Gothic Condensed One", "Oswald", "Barlow Condensed", system-ui, sans-serif;
+    --font-body: "EB Garamond", "Cormorant Garamond", Georgia, ui-serif, serif;
+    --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+    --font-system: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+    /* Role tokens */
+    --bg: var(--color-cream);
+    --text: var(--color-dark);
+    --text-muted: var(--accent-muted);
+    --link-color: var(--accent-primary);
+    --link-hover: var(--accent-primary-hover);
+    --link-underline: rgba(78, 114, 135, 0.35);
+
+    /* Wave strokes (keep Inky Blue for both modes) */
+    --wave-strong: #4E7287;
+    --wave-light: rgba(78, 114, 135, 0.5);
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0d0d0d;
-      --text: #e8e8e8;
-      --text-muted: #9a9a9a;
-      --text-subtle: #6b6b6b;
-      --link-underline: rgba(255, 255, 255, 0.25);
-      --boat-fill: #9a9a9a;
-      --boat-sail: #0d0d0d;
-      --wave-strong: rgba(255, 255, 255, 0.28);
-      --wave-light: rgba(255, 255, 255, 0.12);
+      --bg: var(--accent-indigo);
+      --text: var(--color-cream);
+      --text-muted: var(--accent-muted);
+      --link-color: #8BB3C9;
+      --link-hover: #A8C7D8;
+      --link-underline: rgba(139, 179, 201, 0.4);
+      --wave-strong: #8BB3C9;
+      --wave-light: rgba(139, 179, 201, 0.55);
     }
   }
 
@@ -43,9 +68,10 @@
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
+    font-family: var(--font-body);
+    font-size: 19px;
+    line-height: 1.55;
+    font-feature-settings: "onum" 1, "liga" 1;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -64,16 +90,17 @@
   }
 
   .header {
-    margin: 0 0 7.2rem;
+    margin: 0 0 4rem;
   }
 
   .name {
-    font-size: 15px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--text);
     margin: 0;
-    font-weight: 500;
   }
 
   p {
@@ -81,15 +108,22 @@
   }
 
   a {
-    color: inherit;
+    color: var(--link-color);
     text-decoration: underline;
     text-decoration-color: var(--link-underline);
     text-underline-offset: 3px;
-    transition: text-decoration-color 0.2s ease;
+    transition: color 150ms ease, text-decoration-color 150ms ease;
   }
 
   a:hover {
-    text-decoration-color: var(--text);
+    color: var(--link-hover);
+    text-decoration-color: var(--link-color);
+  }
+
+  a:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+    border-radius: 2px;
   }
 
   .verbs {
@@ -107,20 +141,23 @@
 
   .email {
     margin-top: 3rem;
-    font-size: 10px;
-    letter-spacing: 0.25em;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
   .email a {
     color: var(--text-muted);
     text-decoration: none;
-    border-bottom: 0.5px solid var(--link-underline);
+    border-bottom: 1px solid var(--border-light);
     padding-bottom: 2px;
+    transition: color 150ms ease, border-color 150ms ease;
   }
 
   .email a:hover {
-    color: var(--text);
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
   }
 
   .skiff {
@@ -128,11 +165,11 @@
     top: 4rem;
     left: 1.5rem;
     width: 61px;
-    height: 48px;
+    height: 68px;
   }
 
   .skiff-group {
-    transform-origin: 30px 34px;
+    transform-origin: 30px 55px;
     animation: bob 4.5s ease-in-out infinite;
   }
 
@@ -167,39 +204,55 @@
 
   /* Mobile: skiff drops to the bottom, well below the text */
   @media (max-width: 640px) {
+    body {
+      font-size: 17px;
+    }
+
     .page {
       padding: 3rem 1.25rem 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .content {
       margin-left: 0;
+      order: 1;
     }
 
     .header {
-      margin: 0 0 5rem;
+      margin: 0 0 3rem;
+    }
+
+    .name {
+      font-size: 40px;
+      letter-spacing: -0.03em;
     }
 
     .skiff {
       position: static;
       display: block;
-      margin: 8rem auto 6rem;
+      margin: 4rem auto 3rem;
       width: 72px;
-      height: 56px;
+      height: 80px;
+      order: 2;
     }
   }
 </style>
 </head>
 <body>
 <main class="page">
-  <svg class="skiff" viewBox="0 0 61 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <svg class="skiff" viewBox="0 0 61 68" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g class="skiff-group">
-      <path d="M 30 6 L 30 32 L 46 32 Z" fill="var(--boat-sail)" stroke="var(--boat-fill)" stroke-width="0.8"/>
-      <path d="M 30 9 L 30 30 L 18 30 Z" fill="var(--boat-sail)" stroke="var(--boat-fill)" stroke-width="0.8"/>
-      <line x1="30" y1="4" x2="30" y2="34" stroke="var(--boat-fill)" stroke-width="0.8"/>
-      <path d="M 16 32 Q 30 40 44 32 L 40 36 Q 30 41 20 36 Z" fill="var(--boat-fill)"/>
+      <g transform="scale(0.508333)">
+        <path fill="#B87638" d="M86.103386 9.284513 C87.077927 10.31463 88.717743 11.225101 88.927734 12.392718 C92.358124 31.46685 94.86087 50.790676 103.104233 68.610954 C106.613602 76.197403 110.878784 83.434219 115.192169 91.568581 C97.078743 92.393234 78.392174 93.243988 59.505917 94.103828 C58.553093 96.960106 58.473434 98.814453 62.322659 99.015602 C79.717087 99.924622 97.103073 100.994644 114.493484 101.982224 C116.113899 102.074242 117.744072 101.994492 120.137711 101.994492 C114.40509 107.67981 109.509491 112.413986 101.06369 112.159782 C83.976318 111.645477 66.86245 111.967285 49.759926 112.04055 C46.64497 112.053894 42.371609 113.90551 40.674835 112.479324 C37.716816 109.992996 36.537144 105.488525 34.233521 102.086281 C33.02029 100.294449 31.245237 98.298912 29.312561 97.68026 C21.297462 95.114609 13.100415 93.1222 5.038949 90.691246 C3.857777 90.33506 3.047791 88.747955 2.066058 87.730392 C3.330058 87.45031 4.7261 86.67514 5.836418 86.971268 C12.551102 88.762146 19.129183 91.105232 25.889841 92.673508 C34.236286 94.609627 42.716385 95.969559 51.578884 97.662544 C52.074276 86.283211 52.471504 75.715591 53.011681 65.155281 C53.555477 54.524162 54.101917 43.889759 54.904758 33.276283 C55.687344 22.930559 55.329662 12.446603 57.709251 2.225462 C64.355766 7.720304 57.600548 14.534766 60.834095 20.572104 C65.835655 16.852787 71.049355 12.975712 76.698181 9.450024 C76.052757 11.532372 75.299118 13.63857 73.827484 14.920615 C70.114967 18.154858 66.043968 20.974163 62.197903 24.061018 C61.255196 24.817633 60.624241 25.962669 59.849957 26.929131 C60.202904 27.280678 60.555847 27.632225 60.908794 27.983774 C69.306992 21.750687 77.705193 15.517601 86.103386 9.284513 M60.006294 36.105778 C60.006294 54.335876 60.006294 72.565979 60.006294 90.492699 C75.972572 89.780609 92.304649 89.0522 108.869331 88.313423 C95.028534 65.161034 87.983459 40.168747 86.143379 12.727001 C79.197273 17.744129 73.287811 22.55904 66.831108 26.470629 C62.973278 28.807781 62.934235 31.407919 63.399601 35.144203 C64.033272 40.231762 64.011726 45.400928 64.271133 50.535103 C63.714031 50.58165 63.156925 50.628197 62.599819 50.67474 C61.981716 45.021847 61.363613 39.36895 60.74551 33.716053 C60.568729 33.738674 60.391945 33.761295 60.215164 33.783916 C60.150414 34.276161 60.085663 34.76841 60.006294 36.105778 Z"/>
+        <path fill="#B8793D" d="M45.998287 51.98138 C40.666073 62.946022 35.408157 73.948273 29.901546 84.824623 C29.259827 86.09211 27.242914 86.663345 25.258944 86.616081 C33.761795 68.553604 42.264648 50.491127 50.767502 32.42865 C51.091328 32.541248 51.415154 32.653847 51.738979 32.766445 C51.15456 36.587132 50.570145 40.407822 49.611282 44.805038 C48.157322 47.581509 47.077805 49.781445 45.998287 51.98138 Z"/>
+        <path fill="#B87A40" d="M46.381905 52.156944 C47.077805 49.781445 48.157322 47.581509 49.516045 45.209286 C49.206841 60.536819 48.618427 76.036636 48.030018 91.536461 C47.513847 91.527992 46.997677 91.519531 46.481506 91.511063 C45.080139 78.471848 46.429543 65.395302 46.381905 52.156944 Z"/>
+        <path fill="#F9F6F3" d="M85.955284 8.927448 C77.705193 15.517601 69.306992 21.750687 60.908794 27.983774 C60.555847 27.632225 60.202904 27.280678 59.849957 26.929131 C60.624241 25.962669 61.255196 24.817633 62.197903 24.061018 C66.043968 20.974163 70.114967 18.154858 73.827484 14.920615 C75.299118 13.63857 76.052757 11.532372 77.051987 9.435034 C81.370094 4.844699 82.714256 4.768904 85.955284 8.927448 Z"/>
+        <path fill="#FDFDFD" d="M60.013603 35.683216 C60.085663 34.76841 60.150414 34.276161 60.215164 33.783916 C60.391945 33.761295 60.568729 33.738674 60.74551 33.716053 C61.363613 39.36895 61.981716 45.021847 62.599819 50.67474 C63.156925 50.628197 63.714031 50.58165 64.271133 50.535103 C64.011726 45.400928 64.033272 40.231762 63.399601 35.144203 C62.934235 31.407919 62.973278 28.807781 66.831108 26.470629 C73.287811 22.55904 79.197273 17.744129 86.143379 12.727001 C87.983459 40.168747 95.028534 65.161034 108.869331 88.313423 C92.304649 89.0522 75.972572 89.780609 60.006294 90.492699 C60.006294 72.565979 60.006294 54.335876 60.013603 35.683216 Z"/>
+      </g>
     </g>
-    <path class="wave" d="M 2 41 Q 10 39 18 41 T 32 41 T 46 41 T 58 41" fill="none" stroke="var(--wave-strong)" stroke-width="0.8" stroke-linecap="round"/>
-    <path class="wave wave-2" d="M 2 45 Q 12 43 22 45 T 38 45 T 56 45" fill="none" stroke="var(--wave-light)" stroke-width="0.8" stroke-linecap="round"/>
+    <path class="wave" d="M 2 62 Q 10 60 18 62 T 32 62 T 46 62 T 58 62" fill="none" stroke="var(--wave-strong)" stroke-width="0.8" stroke-linecap="round"/>
+    <path class="wave wave-2" d="M 2 66 Q 12 64 22 66 T 38 66 T 56 66" fill="none" stroke="var(--wave-light)" stroke-width="0.8" stroke-linecap="round"/>
   </svg>
 
   <div class="content">
